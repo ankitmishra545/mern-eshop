@@ -38,11 +38,11 @@ const Login = () => {
   };
 
   return (
-    <div className="flex p-10 border-2 ">
-      <div className="w-80 p-1 flex flex-col items-center">
+    <div className="w-full pt-3 flex justify-center md:p-10">
+      <div className="w-full p-3 flex flex-col items-center md:w-80 lg:w-96 bg-white">
         <FaRegUserCircle size="40px" color="#BB1C6B" />
         <p className="h-2 text-red-600 py-2 text-sm font-serif">{errorMessage}</p>
-        <form onSubmit={handleClick}>
+        <form onSubmit={handleClick} className="w-full px-2">
           <FormInput name="email" label="Email" placeholder="Enter your email" type="text" onChange={handleChange} />
           <FormInput
             name="password"
@@ -53,19 +53,19 @@ const Login = () => {
           />
           <button className="bg-bg-primary text-white font-bold text-lg py-3 mt-3 w-full">Log In</button>
         </form>
-        <p className="pt-2 text-sm">
-          Don't have account ?
+        <p className="pt-2 text-sm w-full">
+          Don't have account ?{" "}
           <span
             className="text-bg-primary hover:underline text-base hover:cursor-pointer"
             onClick={() => {
               setFormData({});
             }}
           >
-            <Link to="/signup">Sign Up</Link>
+            <Link to="/sign-up">Sign Up</Link>
           </span>
         </p>
       </div>
-      <img src={shop} className="w-80" />
+      <img src={shop} className="hidden md:block md:w-80 lg:w-96 " />
     </div>
   );
 };

@@ -17,7 +17,8 @@ const Signup = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    const { name, email, password } = formData;
+    const { name, email, password, confirmPassword } = formData;
+    if (confirmPassword !== password) return setErrorMessage("Password is not Matching!");
     const message = validateEmailPasswordInput({ email, password });
     const nameValidationMessage = validateNameInput(name);
     if (message || nameValidationMessage) {
@@ -39,12 +40,12 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex p-10 border-2 ">
-      <div className="w-80 p-1 flex flex-col items-center">
+    <div className="w-full pt-3 flex justify-center md:p-10">
+      <div className="w-full p-3 flex flex-col items-center md:w-80 lg:w-96 bg-white">
         <FaRegUserCircle size="40px" color="#BB1C6B" />
         <p className="h-2 text-red-600 py-2 text-sm font-serif">{errorMessage}</p>
-        <form onSubmit={handleClick}>
-          <FormInput name="name" label="Email" placeholder="Enter your name" type="text" onChange={handleChange} />
+        <form onSubmit={handleClick} className="w-full px-2">
+          <FormInput name="name" label="Name" placeholder="Enter your name" type="text" onChange={handleChange} />
           <FormInput name="email" label="Email" placeholder="Enter your email" type="text" onChange={handleChange} />
           <FormInput
             name="password"
@@ -53,16 +54,23 @@ const Signup = () => {
             type="password"
             onChange={handleChange}
           />
-          <button className="bg-bg-primary text-white font-bold text-lg py-3 mt-3 w-full">Sign Up</button>
+          <FormInput
+            name="confirmPassword"
+            label="Confirm Password"
+            placeholder="Enter your password"
+            type="password"
+            onChange={handleChange}
+          />
+          <button className="bg-bg-primary text-white font-bold text-lg py-2 mt-3 w-full">Sign Up</button>
         </form>
-        <p className="pt-2 text-sm">
-          "Have an account ?
+        <p className="pt-2 text-sm w-full">
+          Have an account ?{" "}
           <span className="text-bg-primary hover:underline text-base hover:cursor-pointer">
-            <Link to="/signin">Sign In</Link>
+            <Link to="/login">Log In</Link>
           </span>
         </p>
       </div>
-      <img src={shop} className="w-80" />
+      <img src={shop} className="hidden md:block md:w-80 lg:w-96  " />
     </div>
   );
 };

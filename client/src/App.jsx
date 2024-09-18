@@ -4,10 +4,12 @@ import { Outlet } from "react-router-dom";
 
 const App = () => {
   return (
-    <div>
+    <>
       <Header />
-      <Outlet />
-    </div>
+      <div className="min-h-[calc(100vh-80px)] flex justify-center items-center">
+        <Outlet />
+      </div>
+    </>
   );
 };
 

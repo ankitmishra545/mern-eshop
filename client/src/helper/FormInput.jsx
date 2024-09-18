@@ -15,10 +15,15 @@ const FormInput = ({ name, label, placeholder, type, onChange }) => {
           placeholder={placeholder}
           onChange={onChange}
         />
-        {name === "password" && (
-          <button className="absolute right-3 top-3" onClick={() => setShouldPasswordVisible(!shouldPasswordVisible)}>
+        {type === "password" && (
+          <div
+            className="absolute right-3 top-3 cursor-pointer"
+            onClick={() => {
+              setShouldPasswordVisible(!shouldPasswordVisible);
+            }}
+          >
             {shouldPasswordVisible ? <FaEye color="#BB1C6B" /> : <FaEyeSlash color="#BB1C6B" />}
-          </button>
+          </div>
         )}
       </div>
     </div>
