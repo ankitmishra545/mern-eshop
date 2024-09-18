@@ -4,9 +4,12 @@ import FormInput from "../helper/FormInput";
 import { useState } from "react";
 import { validateEmailPasswordInput } from "../utils/validate";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addUser } from "../../store/userSlice";
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({});
 
@@ -23,7 +26,7 @@ const Login = () => {
       setErrorMessage(message);
       return;
     }
-    let jsonResponse = await fetch("/shop/auth/signin", {
+    let jsonResponse = await fetch("/api/auth/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -34,7 +37,13 @@ const Login = () => {
       setErrorMessage(jsoData.message);
       return;
     }
-    navigate("/shop");
+    console.log(jsoData);
+    dispatch(addUser(jsoData));
+    if (jsoData.isAdmin) {
+      navigate("/admin-panel");
+    } else {
+      navigate("/");
+    }
   };
 
   return (

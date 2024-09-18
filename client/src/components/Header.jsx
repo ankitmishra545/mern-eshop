@@ -3,22 +3,9 @@ import Searchbar from "./Searchbar";
 import { FcLike } from "react-icons/fc";
 import { BsCart4 } from "react-icons/bs";
 import { LiaUserSecretSolid } from "react-icons/lia";
-import { Link } from "react-router-dom";
-
-const HEADER_ICON = [
-  {
-    name: "wishlist",
-    icon: <FcLike size="24px" />,
-  },
-  {
-    name: "cart",
-    icon: <BsCart4 size="24px" />,
-  },
-  {
-    name: "user",
-    icon: <LiaUserSecretSolid size="24px" />,
-  },
-];
+import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser } from "../../store/userSlice";
 
 const CATAGORIES = [
   "Korean Buety",
@@ -32,6 +19,18 @@ const CATAGORIES = [
 ];
 
 const Header = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((store) => store.user);
+
+  const handleLogout = async () => {
+    dispatch(addUser(null));
+
+    const jsonResponse = await fetch("/api/user/logout");
+    const jsoData = await jsonResponse.json();
+    console.log(jsoData);
+    navigate("/login");
+  };
   return (
     <div className="w-full shadow-lg bg-white">
       <div className="h-20 mx-auto px-5 flex items-center justify-between">
@@ -41,14 +40,22 @@ const Header = () => {
         <div className="hidden md:block">
           <Searchbar />
         </div>
-        <ul className="flex w-48 justify-between p-3">
-          {HEADER_ICON.map((icon) => (
-            <li key={icon.name} className="cursor-pointer">
-              {icon.icon}
-            </li>
-          ))}
+        <ul className="flex w-48 items-center justify-between p-3">
+          {/* <li>
+            <FcLike size="24px" />
+          </li> */}
+          <li>
+            {user?.profileImage ? (
+              <img src={user.profileImage} className=" w-10 rounded-full border-[1px] border-gray-300" />
+            ) : (
+              <LiaUserSecretSolid size="24px" />
+            )}
+          </li>
+          <li>
+            <BsCart4 size="24px" />
+          </li>
           <li className="bg-bg-primary py-1 px-3 text-white rounded-lg cursor-pointer hover:opacity-80">
-            <Link to="/login">Login</Link>
+            {user?._id ? <button onClick={handleLogout}>Logout</button> : <Link to="/login">Login</Link>}
           </li>
         </ul>
       </div>

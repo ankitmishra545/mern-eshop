@@ -6,7 +6,7 @@ const Users = () => {
   const [users, setUsers] = useState();
 
   const fetchAllUsers = async () => {
-    const jsonResponse = await fetch("/shop/admin/getAllUsers");
+    const jsonResponse = await fetch("/api/admin/getAllUsers");
     const jsoData = await jsonResponse.json();
     setUsers(jsoData);
   };

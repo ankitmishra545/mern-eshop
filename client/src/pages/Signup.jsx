@@ -1,12 +1,14 @@
 import { FaRegUserCircle } from "react-icons/fa";
 import shop from "../assets/3794707.jpg";
 import FormInput from "../helper/FormInput";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { validateEmailPasswordInput, validateNameInput } from "../utils/validate";
 import { useNavigate, Link } from "react-router-dom";
+import imageTobase64 from "../utils/imageToBase64";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const filePickerRef = useRef(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({});
 
@@ -18,6 +20,7 @@ const Signup = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     const { name, email, password, confirmPassword } = formData;
+    console.log(formData);
     if (confirmPassword !== password) return setErrorMessage("Password is not Matching!");
     const message = validateEmailPasswordInput({ email, password });
     const nameValidationMessage = validateNameInput(name);
@@ -25,7 +28,7 @@ const Signup = () => {
       setErrorMessage("Please fill all details!");
       return;
     }
-    const jsonResponse = await fetch("/shop/auth/signup", {
+    const jsonResponse = await fetch("/api/auth/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -36,15 +39,42 @@ const Signup = () => {
       setErrorMessage(jsoData.message);
       return;
     }
-    navigate("/");
+    navigate("/login");
+  };
+
+  const handleImageChange = async (e) => {
+    const file = e.target.files[0];
+    const profileImage = await imageTobase64(file);
+    console.log(profileImage);
+
+    setFormData({ ...formData, profileImage });
   };
 
   return (
     <div className="w-full pt-3 flex justify-center md:p-10">
       <div className="w-full p-3 flex flex-col items-center md:w-80 lg:w-96 bg-white">
-        <FaRegUserCircle size="40px" color="#BB1C6B" />
         <p className="h-2 text-red-600 py-2 text-sm font-serif">{errorMessage}</p>
         <form onSubmit={handleClick} className="w-full px-2">
+          <div className="flex justify-center">
+            {formData.profileImage && (
+              <img
+                src={formData.profileImage}
+                className="w-20 rounded-full"
+                onClick={() => filePickerRef.current.click()}
+              />
+            )}
+            {!formData.profileImage && (
+              <FaRegUserCircle
+                onClick={() => filePickerRef.current.click()}
+                className="relative"
+                size="60px"
+                color="#BB1C6B"
+              />
+            )}
+
+            <input type="file" onChange={handleImageChange} className="  hidden" ref={filePickerRef} />
+          </div>
+
           <FormInput name="name" label="Name" placeholder="Enter your name" type="text" onChange={handleChange} />
           <FormInput name="email" label="Email" placeholder="Enter your email" type="text" onChange={handleChange} />
           <FormInput
