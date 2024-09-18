@@ -3,9 +3,13 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRouter from "./routes/user.route.js";
 import authRouter from "./routes/auth.route.js";
+import adminRouter from "./routes/admin.route.js";
+import { verifyToken } from "./utils/verifyTOken.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 dotenv.config();
 
 mongoose
@@ -23,6 +27,7 @@ app.listen(3000, () => {
 
 app.use("/shop/user", userRouter);
 app.use("/shop/auth", authRouter);
+app.use("/shop/admin", verifyToken, adminRouter);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

@@ -1,11 +1,11 @@
-import shop from "../assets/3794707.jpg";
 import { FaRegUserCircle } from "react-icons/fa";
+import shop from "../assets/3794707.jpg";
 import FormInput from "../helper/FormInput";
 import { useState } from "react";
-import { validateEmailPasswordInput } from "../utils/validate";
-import { Link, useNavigate } from "react-router-dom";
+import { validateEmailPasswordInput, validateNameInput } from "../utils/validate";
+import { useNavigate, Link } from "react-router-dom";
 
-const Login = () => {
+const Signup = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const [formData, setFormData] = useState({});
@@ -16,14 +16,15 @@ const Login = () => {
   };
 
   const handleClick = async (e) => {
-    const { email, password } = formData;
     e.preventDefault();
+    const { name, email, password } = formData;
     const message = validateEmailPasswordInput({ email, password });
-    if (message) {
-      setErrorMessage(message);
+    const nameValidationMessage = validateNameInput(name);
+    if (message || nameValidationMessage) {
+      setErrorMessage("Please fill all details!");
       return;
     }
-    let jsonResponse = await fetch("/shop/auth/signin", {
+    const jsonResponse = await fetch("/shop/auth/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
@@ -34,7 +35,7 @@ const Login = () => {
       setErrorMessage(jsoData.message);
       return;
     }
-    navigate("/shop");
+    navigate("/");
   };
 
   return (
@@ -43,6 +44,7 @@ const Login = () => {
         <FaRegUserCircle size="40px" color="#BB1C6B" />
         <p className="h-2 text-red-600 py-2 text-sm font-serif">{errorMessage}</p>
         <form onSubmit={handleClick}>
+          <FormInput name="name" label="Email" placeholder="Enter your name" type="text" onChange={handleChange} />
           <FormInput name="email" label="Email" placeholder="Enter your email" type="text" onChange={handleChange} />
           <FormInput
             name="password"
@@ -51,17 +53,12 @@ const Login = () => {
             type="password"
             onChange={handleChange}
           />
-          <button className="bg-bg-primary text-white font-bold text-lg py-3 mt-3 w-full">Log In</button>
+          <button className="bg-bg-primary text-white font-bold text-lg py-3 mt-3 w-full">Sign Up</button>
         </form>
         <p className="pt-2 text-sm">
-          Don't have account ?
-          <span
-            className="text-bg-primary hover:underline text-base hover:cursor-pointer"
-            onClick={() => {
-              setFormData({});
-            }}
-          >
-            <Link to="/signup">Sign Up</Link>
+          "Have an account ?
+          <span className="text-bg-primary hover:underline text-base hover:cursor-pointer">
+            <Link to="/signin">Sign In</Link>
           </span>
         </p>
       </div>
@@ -70,4 +67,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;

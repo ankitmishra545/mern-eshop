@@ -42,6 +42,7 @@ const Header = () => {
               {icon.icon}
             </li>
           ))}
+          <li className="bg-bg-primary py-1 px-3 text-white rounded-lg cursor-pointer hover:opacity-80">Login</li>
         </ul>
       </div>
       <div className="h-16 border-2 shadow-lg flex  justify-center items-center ">

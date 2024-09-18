@@ -42,7 +42,7 @@ export const signin = async (req, res, next) => {
       next(401, "Invalid credentials entered!");
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET_KEY);
+    const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT_SECRET_KEY);
 
     const { password: pass, ...rest } = user._doc;
 

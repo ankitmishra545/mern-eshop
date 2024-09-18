@@ -1,8 +1,5 @@
-const validateFormInput = ({ name, email, password }) => {
-  if (!name || !email || !password) return "Please fill all details!";
-
-  const isValidName = /^[a-zA-Z ]{2,30}$/.test(name);
-  if (!isValidName) return "Name is not acceptable";
+export const validateEmailPasswordInput = ({ email, password }) => {
+  if (!email || !password) return "Please fill all details!";
 
   const isValidEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email);
   if (!isValidEmail) return "Email is not acceptable";
@@ -13,4 +10,8 @@ const validateFormInput = ({ name, email, password }) => {
   return null;
 };
 
-export default validateFormInput;
+export const validateNameInput = (name) => {
+  if (!name) return "Please fill all details";
+  const isValidName = /^[a-zA-Z ]{2,30}$/.test(name);
+  if (!isValidName) return "Name is not acceptable";
+};
