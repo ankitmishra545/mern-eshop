@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 
-const FormInput = ({ name, label, placeholder, type, onChange }) => {
+const FormInput = ({ name, label, placeholder, type, onChange, value = "" }) => {
   const [shouldPasswordVisible, setShouldPasswordVisible] = useState(false);
   return (
     <div className="flex flex-col py-2">
@@ -11,6 +11,7 @@ const FormInput = ({ name, label, placeholder, type, onChange }) => {
         <input
           type={shouldPasswordVisible ? "text" : type}
           name={name}
+          defaultValue={value}
           className="w-full border-[1px] p-2 focus:outline-none placeholder:text-xs"
           placeholder={placeholder}
           onChange={onChange}

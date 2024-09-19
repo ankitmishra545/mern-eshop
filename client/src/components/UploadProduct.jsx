@@ -2,12 +2,15 @@ import { IoCloseSharp } from "react-icons/io5";
 import FormInput from "../helper/FormInput";
 import { productCategory } from "../utils/constants";
 import { FaCloudUploadAlt } from "react-icons/fa";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import uploadImage from "../utils/uploadImage";
 import { MdDelete } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { fetchProducts } from "../../store/productSlice";
 
-const UploadProduct = ({ onClose }) => {
+const UploadProduct = ({ onClose, editProductInfo }) => {
   const imageRef = useRef(null);
+  const dispatch = useDispatch();
   const [uploadProduct, setUploadProduct] = useState({
     productName: "",
     brandName: "",
@@ -36,19 +39,61 @@ const UploadProduct = ({ onClose }) => {
     setUploadProduct(newData);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const jsonResponse = await fetch("/api/product/addProduct", {
+  const addProductData = async () => {
+    return await fetch("/api/product/addProduct", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(uploadProduct),
     });
+  };
 
+  const updateProductData = async () => {
+    return await fetch(`/api/product/update/${editProductInfo._id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(uploadProduct),
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    let jsonResponse;
+    if (editProductInfo) {
+      jsonResponse = await updateProductData();
+    } else {
+      jsonResponse = await addProductData();
+    }
     const jsoData = await jsonResponse.json();
-    console.log("jsoData,", jsoData);
     if (jsoData.success === false) return;
     onClose();
+    dispatch(fetchProducts());
   };
+
+  useEffect(() => {
+    if (editProductInfo) {
+      const {
+        _id: productId,
+        productName,
+        brandName,
+        createdAt,
+        productImage,
+        originalPrice,
+        sellingPrice,
+        category,
+        description,
+      } = editProductInfo;
+      const newProductImage = [...productImage];
+      setUploadProduct({
+        productName,
+        brandName,
+        originalPrice,
+        sellingPrice,
+        productImage: newProductImage,
+        category,
+        description,
+      });
+    }
+  }, []);
 
   return (
     <div className="fixed top-0 left-0 right-0 bottom-0 w-full h-full bg-slate-200 bg-opacity-70 flex justify-center items-center">
@@ -65,6 +110,7 @@ const UploadProduct = ({ onClose }) => {
             name="productName"
             label="Product Name:"
             placeholder="Enter product name"
+            value={uploadProduct.productName}
             onChange={handleChangeUploadProduct}
           />
           <FormInput
@@ -72,6 +118,7 @@ const UploadProduct = ({ onClose }) => {
             name="brandName"
             label="Brand Name:"
             placeholder="Enter brand name"
+            value={uploadProduct.brandName}
             onChange={handleChangeUploadProduct}
           />
           <div className="flex flex-col">
@@ -80,6 +127,7 @@ const UploadProduct = ({ onClose }) => {
               className="w-full border-[1px] py-2 my-2 focus-within:outline-none px-3 "
               name="category"
               onChange={handleChangeUploadProduct}
+              value={uploadProduct.category}
             >
               <option value="">Select category</option>
               {productCategory.map((category) => {
@@ -103,11 +151,11 @@ const UploadProduct = ({ onClose }) => {
                 <input type="file" ref={imageRef} className="hidden" onChange={handleUploadImage} />
               </div>
             </div>
-            {uploadProduct.productImage.length === 0 && (
+            {uploadProduct?.productImage?.length === 0 && (
               <p className="text-red-600 text-sm">* Please upload product image</p>
             )}
             <div className="flex gap-2">
-              {uploadProduct.productImage.map((image) => {
+              {uploadProduct?.productImage?.map((image) => {
                 const { imageId, imagePath } = image;
                 return (
                   <div key={imageId} className="relative group">
@@ -128,6 +176,7 @@ const UploadProduct = ({ onClose }) => {
             name="originalPrice"
             label="Original Price"
             placeholder="Enter original price"
+            value={uploadProduct.originalPrice}
             onChange={handleChangeUploadProduct}
           />
           <FormInput
@@ -135,17 +184,19 @@ const UploadProduct = ({ onClose }) => {
             name="sellingPrice"
             label="Selling Price"
             placeholder="Enter selling price"
+            value={uploadProduct.sellingPrice}
             onChange={handleChangeUploadProduct}
           />
           <textarea
             name="description"
             className="min-h-28 bg-slate-100 border resize-none p-3 focus:outline-none"
             placeholder="Enter product description"
+            defaultValue={uploadProduct.description}
             rows={3}
             onChange={handleChangeUploadProduct}
           />
           <button className="w-full p-3 bg-green-600 rounded-lg text-white font-bold text-lg mt-2 ">
-            Upload Product
+            {editProductInfo ? "Update Product" : "Upload Product"}
           </button>
         </form>
       </div>
