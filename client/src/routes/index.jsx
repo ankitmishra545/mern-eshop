@@ -27,11 +27,6 @@ const appRouter = createBrowserRouter([
         element: <Signup />,
       },
       {
-        path: "shop",
-        element: <Home />,
-      },
-
-      {
         path: "admin-panel",
         element: <AdminPanel />,
         children: [
