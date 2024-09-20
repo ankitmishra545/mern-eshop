@@ -5,7 +5,7 @@ import { useState } from "react";
 import { validateEmailPasswordInput } from "../utils/validate";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addUser } from "../../store/userSlice";
+import { addUser } from "../store/userSlice";
 
 const Login = () => {
   const navigate = useNavigate();

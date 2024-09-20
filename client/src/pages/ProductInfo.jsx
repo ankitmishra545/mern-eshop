@@ -5,7 +5,7 @@ import displayINRCurrency from "../utils/displayCurrency";
 import HomeProductCard from "../components/HomeProductCard";
 import useCountOfItemsInCart from "../utils/useCountOfItemsInCart";
 import { useDispatch } from "react-redux";
-import { addToCart, removeItemFromCart } from "../../store/productSlice";
+import { addToCart, removeItemFromCart } from "../store/productSlice";
 
 const ProductInfo = () => {
   const { productId } = useParams();

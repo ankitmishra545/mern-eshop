@@ -3,7 +3,7 @@ import { CiEdit } from "react-icons/ci";
 import { MdDelete } from "react-icons/md";
 import displayINRCurrency from "../utils/displayCurrency";
 import { useDispatch } from "react-redux";
-import { fetchProducts } from "../../store/productSlice";
+import { fetchProducts } from "../store/productSlice";
 import UploadProduct from "./UploadProduct";
 import { MdOutlineUpdate } from "react-icons/md";
 

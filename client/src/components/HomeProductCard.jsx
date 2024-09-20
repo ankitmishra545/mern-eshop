@@ -1,5 +1,5 @@
 import displayINRCurrency from "../utils/displayCurrency";
-import { addToCart, removeItemFromCart } from "../../store/productSlice";
+import { addToCart, removeItemFromCart } from "../store/productSlice";
 import { FaPlus } from "react-icons/fa";
 import { FaMinus } from "react-icons/fa";
 import { useDispatch } from "react-redux";

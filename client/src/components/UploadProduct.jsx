@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import uploadImage from "../utils/uploadImage";
 import { MdDelete } from "react-icons/md";
 import { useDispatch } from "react-redux";
-import { fetchProducts } from "../../store/productSlice";
+import { fetchProducts } from "../store/productSlice";
 
 const UploadProduct = ({ onClose, editProductInfo }) => {
   const imageRef = useRef(null);
