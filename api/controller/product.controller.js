@@ -58,3 +58,20 @@ export const updateProduct = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getProductCategories = async (req, res, next) => {
+  try {
+    const categories = await Product.distinct("category");
+
+    const productCategories = [];
+    for (const category of categories) {
+      const product = await Product.findOne({ category });
+      if (product) {
+        productCategories.push(product);
+      }
+    }
+    res.status(200).json(productCategories);
+  } catch (error) {
+    next(error);
+  }
+};

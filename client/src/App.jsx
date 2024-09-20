@@ -8,7 +8,7 @@ const App = () => {
   return (
     <Provider store={appStore}>
       <Header />
-      <div className="min-h-[calc(100vh-80px)] flex justify-center items-center">
+      <div className="min-h-[calc(100vh-80px)] flex justify-center">
         <Outlet />
       </div>
     </Provider>

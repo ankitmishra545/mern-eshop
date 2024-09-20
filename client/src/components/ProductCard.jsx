@@ -11,7 +11,6 @@ const ProductCard = ({ productInfo }) => {
 
   const dispatch = useDispatch();
   const [editProduct, setEditProduct] = useState(false);
-  const products = useSelector((store) => store.product);
 
   const handleDeleteProduct = async (id) => {
     const jsonResponse = await fetch(`/api/product/delete/${id}`, {
