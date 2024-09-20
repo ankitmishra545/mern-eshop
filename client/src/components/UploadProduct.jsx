@@ -97,9 +97,9 @@ const UploadProduct = ({ onClose, editProductInfo }) => {
 
   return (
     <div className="fixed top-0 left-0 right-0 bottom-0 w-full h-full bg-slate-200 bg-opacity-70 flex justify-center items-center">
-      <div className="bg-white w-full h-full border-2  max-h-[70%] max-w-[80%] p-3 overflow-hidden">
-        <div className="flex justify-between">
-          <h2 className="font-bold text-lg">Upload Product</h2>
+      <div className="bg-white w-full h-full border-2  max-h-[70%] max-w-[80%] p-3 overflow-hidden pb-10">
+        <div className="flex justify-between h-12">
+          <h2 className="font-bold text-lg">{editProductInfo ? "Update Product" : "Upload Product"}</h2>
           <button onClick={onClose}>
             <IoCloseSharp size="20px" color="red" />
           </button>

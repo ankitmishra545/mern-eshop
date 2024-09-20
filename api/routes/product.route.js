@@ -11,7 +11,7 @@ import {
 const router = express.Router();
 
 router.post("/addProduct", verifyToken, addProduct);
-router.get("/getAllProducts", verifyToken, getAllProducts);
+router.get("/getAllProducts", getAllProducts);
 router.delete("/delete/:productId", verifyToken, deleteProduct);
 router.put("/update/:productId", verifyToken, updateProduct);
 router.get("/getProductCategories", getProductCategories);

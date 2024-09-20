@@ -6,31 +6,31 @@ import { LiaUserSecretSolid } from "react-icons/lia";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../../store/userSlice";
-
-const CATAGORIES = [
-  "Korean Buety",
-  "On the body",
-  "In the body",
-  "Around the body",
-  "Bestsellers",
-  "Brands",
-  "Offers",
-  "Watch & Shop",
-];
+import { addToCart } from "../../store/productSlice";
 
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((store) => store.user);
+  const cart = useSelector((store) => store.product.cart);
 
   const handleLogout = async () => {
-    dispatch(addUser(null));
+    dispatch(addUser({}));
+    dispatch(addToCart(null));
 
     const jsonResponse = await fetch("/api/user/logout");
     const jsoData = await jsonResponse.json();
-    console.log(jsoData);
     navigate("/login");
   };
+
+  const handleClickCart = () => {
+    if (user.name === null || user.name === undefined) {
+      navigate("/login");
+    } else {
+      navigate("cart");
+    }
+  };
+
   return (
     <div className="w-full shadow-lg bg-white">
       <div className="h-20 mx-auto px-5 flex items-center justify-between">
@@ -41,9 +41,6 @@ const Header = () => {
           <Searchbar />
         </div>
         <ul className="flex w-48 items-center justify-between p-3">
-          {/* <li>
-            <FcLike size="24px" />
-          </li> */}
           <li>
             {user?.profileImage ? (
               <img src={user.profileImage} className=" w-10 rounded-full border-[1px] border-gray-300" />
@@ -52,22 +49,18 @@ const Header = () => {
             )}
           </li>
           <li>
-            <BsCart4 size="24px" />
+            <div className="relative cursor-pointer" onClick={handleClickCart}>
+              <BsCart4 size="24px" />
+              <div className="bg-red-600 text-white rounded-full text-center absolute top-[-10px] right-[-10px] w-5 text-xs h-5">
+                {cart.length}
+              </div>
+            </div>
           </li>
           <li className="bg-bg-primary py-1 px-3 text-white rounded-lg cursor-pointer hover:opacity-80">
             {user?._id ? <button onClick={handleLogout}>Logout</button> : <Link to="/login">Login</Link>}
           </li>
         </ul>
       </div>
-      {/* <div className="h-16 border-2 shadow-lg flex  justify-center items-center ">
-        <ul className="flex">
-          {CATAGORIES.map((category) => (
-            <li key={category} className="py-2 px-3 cursor-pointer">
-              {category}
-            </li>
-          ))}
-        </ul>
-      </div> */}
     </div>
   );
 };

@@ -1,28 +1,15 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ProductCard from "./ProductCard";
 import UploadProduct from "./UploadProduct";
-import { useDispatch, useSelector } from "react-redux";
-import { addProduct } from "../../store/productSlice";
+import useGetPtoducts from "../utils/useGetProducts";
 
 const Products = () => {
-  const dispatch = useDispatch();
   const [showUploadProduct, setShowUploadProduct] = useState(false);
-  const products = useSelector((state) => state.product.products);
-  const fetchProduct = useSelector((state) => state.product.shouldFetch);
+  const products = useGetPtoducts();
 
   const handleCloseUploadProduct = () => {
     setShowUploadProduct(false);
   };
-
-  const fetchAllProducts = async () => {
-    const jsonResponse = await fetch("/api/product/getAllProducts");
-    const jsoData = await jsonResponse.json();
-    dispatch(addProduct(jsoData));
-  };
-
-  useEffect(() => {
-    fetchAllProducts();
-  }, [fetchProduct]);
 
   return (
     <div className="px-4 pt-3">
@@ -35,7 +22,7 @@ const Products = () => {
           Upload Product
         </button>
       </div>
-      <div className="py-2 flex gap-3 flex-wrap overflow-y-scroll h-full">
+      <div className="py-2 flex justify-center gap-4 flex-wrap overflow-y-scroll h-full pt-10">
         {products?.map((product) => {
           return <ProductCard key={product._id} productInfo={product} />;
         })}

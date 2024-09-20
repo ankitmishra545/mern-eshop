@@ -1,15 +1,30 @@
 import { HiArrowSmRight, HiChartPie, HiOutlineUserGroup, HiUser } from "react-icons/hi";
 import { BsShop } from "react-icons/bs";
 import { Link, Outlet, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const AdminPanel = () => {
   const navigate = useNavigate();
+  const user = useSelector((store) => store.user);
 
   const handleLogout = async () => {
     const responseJson = await fetch("/api/user/logout");
     const jsoData = await responseJson.json();
     navigate("/login");
   };
+
+  console.log(user);
+
+  const isUser = user.name === null || user.name === undefined;
+
+  console.log(isUser);
+
+  useEffect(() => {
+    if (isUser) {
+      navigate("/login");
+    }
+  }, []);
 
   return (
     <div className="min-h-[calc(100vh-80px)]  flex w-full">

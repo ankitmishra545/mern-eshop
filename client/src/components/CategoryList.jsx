@@ -14,8 +14,6 @@ const CategoryList = () => {
     fetchCategoryList();
   }, []);
 
-  console.log(categories);
-
   return (
     <div className="container mx-auto p-2">
       <div className="overflow-scroll flex gap-4 justify-between items-center no-scrollbar">
@@ -26,10 +24,10 @@ const CategoryList = () => {
               <div className="w-16 h-16 md:w-24 md:h-24 rounded-full overflow-hidden p-4 bg-slate-200 flex items-center justify-center scrollbar-none ">
                 <img
                   src={productImage[0].imagePath}
-                  className=" h-full object-scale-down mix-blend-multiply hover:scale-125 transition-all"
+                  className=" h-full object-scale-down mix-blend-multiply hover:scale-115 transition-all"
                 />
               </div>
-              <p className="text-sm text-center hover:scale-125 capitalize">{category.category}</p>
+              <p className="text-sm text-center capitalize">{category.category}</p>
             </Link>
           );
         })}

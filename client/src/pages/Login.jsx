@@ -37,7 +37,6 @@ const Login = () => {
       setErrorMessage(jsoData.message);
       return;
     }
-    console.log(jsoData);
     dispatch(addUser(jsoData));
     if (jsoData.isAdmin) {
       navigate("/admin-panel");
