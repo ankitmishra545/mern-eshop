@@ -73,3 +73,22 @@ export const getProductCategories = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getProductInfo = async (req, res, next) => {
+  try {
+    const product = await Product.findById(req.params.productId);
+    res.status(200).json(product);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getCategoryProducts = async (req, res, next) => {
+  const { categoryName } = req.params;
+  try {
+    const products = await Product.find({ category: categoryName });
+    res.status(200).json(products);
+  } catch (error) {
+    next(error);
+  }
+};

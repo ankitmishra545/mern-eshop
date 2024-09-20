@@ -3,11 +3,13 @@ import { addToCart, removeItemFromCart } from "../../store/productSlice";
 import { FaPlus } from "react-icons/fa";
 import { FaMinus } from "react-icons/fa";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const HomeProductCard = ({ productInfo, countOfItem }) => {
   const { _id: productId, productName, brandName, productImage, originalPrice, sellingPrice } = productInfo;
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleAddtoCart = (e) => {
     e.stopPropagation();
@@ -19,8 +21,15 @@ const HomeProductCard = ({ productInfo, countOfItem }) => {
     dispatch(removeItemFromCart(productId));
   };
 
+  const handleProductClick = () => {
+    navigate(`/product-info/${productId}`);
+  };
+
   return (
-    <div className="flex gap-2 p-3 cursor-pointer justify-center w-[250px] h-[250px] rounded-lg  shadow-xl  bg-white">
+    <div
+      onClick={handleProductClick}
+      className="flex gap-2 p-3 cursor-pointer justify-center w-[250px] h-[250px] rounded-lg  shadow-xl  bg-white"
+    >
       <div className=" w-6/12 p-1">
         <img src={productImage[0].imagePath} alt="product-image" className="w-full h-full " />
       </div>

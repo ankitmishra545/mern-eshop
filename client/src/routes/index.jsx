@@ -8,6 +8,8 @@ import Dashboard from "../components/Dashboard";
 import Profile from "../components/Profile";
 import Users from "../components/Users";
 import Products from "../components/Products";
+import ProductInfo from "../pages/ProductInfo";
+import CategoryPage from "../pages/CategoryPage";
 
 const appRouter = createBrowserRouter([
   {
@@ -25,6 +27,14 @@ const appRouter = createBrowserRouter([
       {
         path: "sign-up",
         element: <Signup />,
+      },
+      {
+        path: "product-info/:productId",
+        element: <ProductInfo />,
+      },
+      {
+        path: "category/:categoryName",
+        element: <CategoryPage />,
       },
       {
         path: "admin-panel",

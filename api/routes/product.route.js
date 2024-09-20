@@ -6,6 +6,8 @@ import {
   deleteProduct,
   updateProduct,
   getProductCategories,
+  getProductInfo,
+  getCategoryProducts,
 } from "../controller/product.controller.js";
 
 const router = express.Router();
@@ -15,5 +17,7 @@ router.get("/getAllProducts", getAllProducts);
 router.delete("/delete/:productId", verifyToken, deleteProduct);
 router.put("/update/:productId", verifyToken, updateProduct);
 router.get("/getProductCategories", getProductCategories);
+router.get("/getProductInfo/:productId", getProductInfo);
+router.get("/getCategoryProduct/:categoryName", getCategoryProducts);
 
 export default router;

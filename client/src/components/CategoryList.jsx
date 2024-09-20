@@ -18,9 +18,9 @@ const CategoryList = () => {
     <div className="container mx-auto p-2">
       <div className="overflow-scroll flex gap-4 justify-between items-center no-scrollbar">
         {categories.map((category) => {
-          const { _id: categoryId, productImage } = category;
+          const { _id: categoryId, productImage, category: categoryName } = category;
           return (
-            <Link key={categoryId} className="cursor-pointer">
+            <Link key={categoryId} className="cursor-pointer" to={`/category/${categoryName}`}>
               <div className="w-16 h-16 md:w-24 md:h-24 rounded-full overflow-hidden p-4 bg-slate-200 flex items-center justify-center scrollbar-none ">
                 <img
                   src={productImage[0].imagePath}

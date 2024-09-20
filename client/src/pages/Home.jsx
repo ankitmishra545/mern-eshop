@@ -3,20 +3,12 @@ import Banner from "../components/Banner";
 import useGetPtoducts from "../utils/useGetProducts";
 import HomeProductCard from "../components/HomeProductCard";
 import { useSelector } from "react-redux";
+import useCountOfItemsInCart from "../utils/useCountOfItemsInCart";
 
 const Home = () => {
   const products = useGetPtoducts();
 
-  const cart = useSelector((store) => store.product.cart);
-
-  const countCartItems = cart.reduce((acc, value) => {
-    if (acc[value]) {
-      acc[value] = acc[value] + 1;
-    } else {
-      acc[value] = 1;
-    }
-    return acc;
-  }, {});
+  const countCartItems = useCountOfItemsInCart();
 
   if (products.length === 0) return <div>Loading...</div>;
 
