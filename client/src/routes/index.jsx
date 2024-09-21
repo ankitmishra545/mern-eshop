@@ -10,6 +10,7 @@ import Users from "../components/Users";
 import Products from "../components/Products";
 import ProductInfo from "../pages/ProductInfo";
 import CategoryPage from "../pages/CategoryPage";
+import SearchPage from "../pages/SearchPage";
 
 const appRouter = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const appRouter = createBrowserRouter([
       {
         path: "category/:categoryName",
         element: <CategoryPage />,
+      },
+      {
+        path: "search",
+        element: <SearchPage />,
       },
       {
         path: "admin-panel",

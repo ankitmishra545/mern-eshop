@@ -3,10 +3,11 @@ import Searchbar from "./Searchbar";
 import { FcLike } from "react-icons/fc";
 import { BsCart4 } from "react-icons/bs";
 import { LiaUserSecretSolid } from "react-icons/lia";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../store/userSlice";
 import { addToCart } from "../store/productSlice";
+import { useEffect, useState } from "react";
 
 const Header = () => {
   const dispatch = useDispatch();

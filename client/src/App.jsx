@@ -2,7 +2,7 @@ import React from "react";
 import Header from "./components/Header";
 import { Outlet } from "react-router-dom";
 import { Provider } from "react-redux";
-import appStore from "../store/appStore";
+import appStore from "./store/appStore";
 
 const App = () => {
   return (

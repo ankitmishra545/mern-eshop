@@ -92,3 +92,29 @@ export const getCategoryProducts = async (req, res, next) => {
     next(error);
   }
 };
+
+export const searchProduct = async (req, res, next) => {
+  try {
+    const query = Object.entries(req.query);
+    const value = query[0][0];
+
+    const regex = new RegExp(value, "i", "g");
+
+    const products = await Product.find({
+      $or: [
+        {
+          productName: regex,
+        },
+        {
+          brandName: regex,
+        },
+        {
+          category: regex,
+        },
+      ],
+    });
+    res.status(200).json(products);
+  } catch (error) {
+    next(error);
+  }
+};

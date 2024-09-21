@@ -8,6 +8,7 @@ import {
   getProductCategories,
   getProductInfo,
   getCategoryProducts,
+  searchProduct,
 } from "../controller/product.controller.js";
 
 const router = express.Router();
@@ -19,5 +20,6 @@ router.put("/update/:productId", verifyToken, updateProduct);
 router.get("/getProductCategories", getProductCategories);
 router.get("/getProductInfo/:productId", getProductInfo);
 router.get("/getCategoryProduct/:categoryName", getCategoryProducts);
+router.get("/search", searchProduct);
 
 export default router;
