@@ -8,7 +8,6 @@ const Users = () => {
   const fetchAllUsers = async () => {
     const jsonResponse = await fetch("/api/user/getAllUsers");
     const jsoData = await jsonResponse.json();
-    console.log(jsoData);
     setUsers(jsoData);
   };
 
@@ -18,7 +17,6 @@ const Users = () => {
     });
     const data = await jsonResponse.json();
     if (!jsonResponse.ok) {
-      console.log(data.message);
     } else {
       const newUsers = users.filter((user) => user._id !== id);
       setUsers(newUsers);
@@ -31,7 +29,7 @@ const Users = () => {
 
   return (
     <div className="p-3">
-      <table className="w-full border-collapse border border-slate-400 ">
+      <table className="w-full border-collapse border border-slate-400 max-h-[calc(100vh-150px)] ">
         <thead>
           <tr className="">
             {TABLE_HEAD.map((head) => (

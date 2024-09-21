@@ -13,7 +13,6 @@ const CategoryPage = () => {
   const fetchCategoryProducts = async () => {
     const jsonResponse = await fetch(`/api/product/getCategoryProduct/${categoryName}`);
     const jsoData = await jsonResponse.json();
-    console.log("jsoData", jsoData);
     setProducts(jsoData);
   };
 

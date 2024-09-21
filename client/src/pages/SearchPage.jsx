@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import HomeProductCard from "../components/HomeProductCard";
 import useCountOfItemsInCart from "../utils/useCountOfItemsInCart";
 

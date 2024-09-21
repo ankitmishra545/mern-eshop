@@ -1,5 +1,5 @@
 import { IoCloseSharp } from "react-icons/io5";
-import FormInput from "../helper/FormInput";
+import FormInput from "./FormInput";
 import { productCategory } from "../utils/constants";
 import { FaCloudUploadAlt } from "react-icons/fa";
 import { useEffect, useRef, useState } from "react";

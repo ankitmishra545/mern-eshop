@@ -13,7 +13,6 @@ const Searchbar = () => {
     const urlParams = new URLSearchParams(location.search);
     urlParams.set("searchTerm", searchTerm);
     const searchQuery = urlParams.toString();
-    console.log("first");
     navigate(`/search?${searchQuery}`);
   };
 

@@ -1,7 +1,7 @@
 import { FaRegUserCircle } from "react-icons/fa";
 import shop from "../assets/3794707.jpg";
 import FormInput from "../helper/FormInput";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { validateEmailPasswordInput, validateNameInput } from "../utils/validate";
 import { useNavigate, Link } from "react-router-dom";
 import imageTobase64 from "../utils/imageToBase64";
@@ -44,7 +44,6 @@ const Signup = () => {
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     const profileImage = await imageTobase64(file);
-    console.log(profileImage);
 
     setFormData({ ...formData, profileImage });
   };

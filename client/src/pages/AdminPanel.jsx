@@ -1,4 +1,4 @@
-import { HiArrowSmRight, HiChartPie, HiOutlineUserGroup, HiUser } from "react-icons/hi";
+import { HiArrowSmRight, HiOutlineUserGroup } from "react-icons/hi";
 import { BsShop } from "react-icons/bs";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -14,8 +14,6 @@ const AdminPanel = () => {
     navigate("/login");
   };
 
-  console.log(user);
-
   const isUser = user.name === null || user.name === undefined;
 
   useEffect(() => {
@@ -27,20 +25,16 @@ const AdminPanel = () => {
   return (
     <div className="min-h-[calc(100vh-80px)]  flex w-full">
       <div className=" max-w-60 items-center flex-col bg-white">
-        <nav className="grid p-4 text-xl font-semibold">
-          <Link to="dashboard" className="flex items-center p-2 hover:bg-bg-primary hover:text-white">
-            <HiChartPie className="me-2" />
-            Dashbaoard
-          </Link>
-          <Link to="users" className="flex items-center p-2 hover:bg-bg-primary hover:text-white">
+        <nav className="grid p-4 text-xl">
+          <Link to="users" className="flex items-center p-2 hover:underline">
             <HiOutlineUserGroup className="me-2" />
             Users
           </Link>
-          <Link to="products" className="flex items-center p-2 hover:bg-bg-primary hover:text-white">
+          <Link to="products" className="flex items-center p-2 hover:underline">
             <BsShop className="me-2" />
             Products
           </Link>
-          <button className="flex items-center p-2 hover:bg-bg-primary hover:text-white" onClick={handleLogout}>
+          <button className="flex items-center p-2 hover:underline" onClick={handleLogout}>
             <HiArrowSmRight className="me-2" />
             Sign Out
           </button>

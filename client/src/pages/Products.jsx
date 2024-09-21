@@ -1,6 +1,6 @@
 import { useState } from "react";
-import ProductCard from "./ProductCard";
-import UploadProduct from "./UploadProduct";
+import ProductCard from "../components/ProductCard";
+import UploadProduct from "../components/UploadProduct";
 import useGetPtoducts from "../utils/useGetProducts";
 
 const Products = () => {
@@ -22,7 +22,7 @@ const Products = () => {
           Upload Product
         </button>
       </div>
-      <div className="py-2 flex justify-center gap-4 flex-wrap overflow-y-scroll h-full pt-10">
+      <div className="py-2 flex justify-center gap-4 flex-wrap overflow-y-scroll max-h-[calc(100vh-160px)] pt-10">
         {products?.map((product) => {
           return <ProductCard key={product._id} productInfo={product} />;
         })}
