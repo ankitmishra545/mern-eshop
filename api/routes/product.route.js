@@ -21,5 +21,6 @@ router.get("/getProductCategories", getProductCategories);
 router.get("/getProductInfo/:productId", getProductInfo);
 router.get("/getCategoryProduct/:categoryName", getCategoryProducts);
 router.get("/search", searchProduct);
+// router.post("/getCartItems", getCartItems);
 
 export default router;

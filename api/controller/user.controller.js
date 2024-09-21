@@ -1,3 +1,4 @@
+import { redis } from "../index.js";
 import User from "../models/user.model.js";
 import { errorHandler } from "../utils/error.js";
 
@@ -15,14 +16,20 @@ export const logout = (req, res, next) => {
 
 export const getAllUsers = async (req, res, next) => {
   if (!req.user.isAdmin) return next(errorHandler(401, "Unauthorized access!"));
-
   try {
+    const redishData = await redis.get("allUsers");
+    if (redishData) {
+      return res.status(200).json(JSON.parse(redishData));
+    }
+
     const users = await User.find();
 
     const usersWithoutPassword = users.map((user) => {
       const { password, ...rest } = user._doc;
       return rest;
     });
+
+    await redis.set("allUsers", JSON.stringify(usersWithoutPassword));
     res.status(200).json(usersWithoutPassword);
   } catch (error) {
     next(error);
@@ -33,6 +40,7 @@ export const deleteUser = async (req, res, next) => {
   if (!req.user.isAdmin && req.user.id !== req.params.userId) return next(errorHandler(401, "Unathorized access!"));
   try {
     await User.findByIdAndDelete(req.params.userId);
+    redis.del("allUsers");
     res.status(200).json("User has been deleted!");
   } catch (error) {
     next(error);

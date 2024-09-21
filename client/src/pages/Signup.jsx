@@ -20,7 +20,6 @@ const Signup = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     const { name, email, password, confirmPassword } = formData;
-    console.log(formData);
     if (confirmPassword !== password) return setErrorMessage("Password is not Matching!");
     const message = validateEmailPasswordInput({ email, password });
     const nameValidationMessage = validateNameInput(name);

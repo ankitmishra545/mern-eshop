@@ -18,8 +18,6 @@ const AdminPanel = () => {
 
   const isUser = user.name === null || user.name === undefined;
 
-  console.log(isUser);
-
   useEffect(() => {
     if (isUser) {
       navigate("/login");
