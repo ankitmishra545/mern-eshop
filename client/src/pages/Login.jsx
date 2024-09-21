@@ -1,11 +1,11 @@
 import shop from "../assets/3794707.jpg";
 import { FaRegUserCircle } from "react-icons/fa";
-import FormInput from "../helper/FormInput";
 import { useState } from "react";
 import { validateEmailPasswordInput } from "../utils/validate";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addUser } from "../store/userSlice";
+import FormInput from "../components/FormInput";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -39,16 +39,16 @@ const Login = () => {
     }
     dispatch(addUser(jsoData));
     if (jsoData.isAdmin) {
-      navigate("/admin-panel");
+      navigate("/admin-panel/products");
     } else {
       navigate("/");
     }
   };
 
   return (
-    <div className="w-full pt-3 flex justify-center md:p-10">
-      <div className="w-full p-3 flex flex-col items-center md:w-80 lg:w-96 bg-white">
-        <FaRegUserCircle size="40px" color="#BB1C6B" />
+    <div className="w-full flex justify-center items-center">
+      <div className="w-full p-8 flex flex-col items-center max-h-[400px] max-w-[500px] bg-white">
+        <FaRegUserCircle size="50px" color="#BB1C6B" />
         <p className="h-2 text-red-600 py-2 text-sm font-serif">{errorMessage}</p>
         <form onSubmit={handleClick} className="w-full px-2">
           <FormInput name="email" label="Email" placeholder="Enter your email" type="text" onChange={handleChange} />
@@ -73,7 +73,6 @@ const Login = () => {
           </span>
         </p>
       </div>
-      <img src={shop} className="hidden md:block md:w-80 lg:w-96 " />
     </div>
   );
 };

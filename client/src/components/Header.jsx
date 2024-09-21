@@ -41,7 +41,7 @@ const Header = () => {
         <div className="hidden md:block">
           <Searchbar />
         </div>
-        <ul className="flex min-w-80 gap-8 items-center p-3">
+        <ul className="flex min-w-80 gap-8 items-center p-3 justify-end">
           {user.isAdmin && (
             <li className="  text-sm font-bold p-1 rounded-lg underline">
               <Link to="/admin-panel/products">ADMIN</Link>

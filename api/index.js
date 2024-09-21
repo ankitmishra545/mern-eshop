@@ -6,16 +6,19 @@ import authRouter from "./routes/auth.route.js";
 import productRouter from "./routes/product.route.js";
 import cookieParser from "cookie-parser";
 import Redis from "ioredis";
+import path from "path";
 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
 dotenv.config();
 
+const __dirname = path.resolve();
+
 export const redis = new Redis({
-  host: "redis-16122.c264.ap-south-1-1.ec2.redns.redis-cloud.com",
-  port: 16122,
-  password: "feDEuQUb9ACTKNKeePNy24BJ9OWIjkuZ",
+  host: process.env.REDIS_HOST,
+  port: process.env.REDIS_PORT,
+  password: process.env.REDIS_PASSWORD,
 });
 
 redis.on("connect", () => {
@@ -38,6 +41,11 @@ app.listen(3000, () => {
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
 app.use("/api/product", productRouter);
+
+app.use(express.static(path.join(__dirname, "/client/dist")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
+});
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;

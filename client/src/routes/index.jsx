@@ -4,11 +4,11 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Home from "../pages/Home";
 import AdminPanel from "../pages/AdminPanel";
-import Users from "../components/Users";
-import Products from "../components/Products";
 import ProductInfo from "../pages/ProductInfo";
 import CategoryPage from "../pages/CategoryPage";
 import SearchPage from "../pages/SearchPage";
+import Products from "../pages/Products";
+import Users from "../pages/Users";
 
 const appRouter = createBrowserRouter([
   {

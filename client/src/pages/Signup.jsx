@@ -1,10 +1,10 @@
 import { FaRegUserCircle } from "react-icons/fa";
 import shop from "../assets/3794707.jpg";
-import FormInput from "../helper/FormInput";
 import { useRef, useState } from "react";
 import { validateEmailPasswordInput, validateNameInput } from "../utils/validate";
 import { useNavigate, Link } from "react-router-dom";
 import imageTobase64 from "../utils/imageToBase64";
+import FormInput from "../components/FormInput";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -98,7 +98,6 @@ const Signup = () => {
           </span>
         </p>
       </div>
-      <img src={shop} className="hidden md:block md:w-80 lg:w-96  " />
     </div>
   );
 };
