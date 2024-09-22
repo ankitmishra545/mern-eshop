@@ -1,8 +1,18 @@
 MERN-ESHOP
 
-Prerequisites - Node.js - VS Code
+Prerequisites
 
-Installation - git clone git clone https://github.com/ankitmishra545/mern-eshop - cd mern-eshop
+    - Node.js
+    - VS Code
+    -.env files value
+
+        VITE_CLOUDANARY_KEY
+        MONGO_CONNECTION_STRING
+        REDIS_HOST
+        REDIS_PORT
+        REDIS_PASSWORD
+
+Installation - git clone https://github.com/ankitmishra545/mern-eshop - cd mern-eshop
 
     -Install Dependencies and run server
         - npm install
