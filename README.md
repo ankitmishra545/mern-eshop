@@ -4,10 +4,11 @@ Prerequisites
 
     - Node.js
     - VS Code
-    -.env files value
+    -Two .env_dev files that have sample, to provide environment varaibles
 
         VITE_CLOUDANARY_KEY
         MONGO_CONNECTION_STRING
+        JWT_SECRET_KEY
         REDIS_HOST
         REDIS_PORT
         REDIS_PASSWORD
