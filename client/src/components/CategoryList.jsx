@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 const CategoryList = () => {
   const [categories, setCategories] = useState([]);
 
+  // fetching the unique category from all products and storing in state variable
   const fetchCategoryList = async () => {
     const jsonResponse = await fetch("/api/product/getProductCategories");
     const jsoData = await jsonResponse.json();
@@ -16,7 +17,7 @@ const CategoryList = () => {
 
   return (
     <div className="container mx-auto p-2">
-      <div className="overflow-scroll flex gap-4 justify-between items-center no-scrollbar">
+      <div className="overflow-scroll flex flex-col  md:flex-row gap-4 justify-between items-center no-scrollbar">
         {categories.map((category) => {
           const { _id: categoryId, productImage, category: categoryName } = category;
           return (

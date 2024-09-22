@@ -7,12 +7,14 @@ import { fetchProducts } from "../store/productSlice";
 import UploadProduct from "./UploadProduct";
 import { MdOutlineUpdate } from "react-icons/md";
 
+// this productcard component which takes product information and display that information to ADMIN, who can READ, UPDATE,and DELETE
 const ProductCard = ({ productInfo }) => {
   const { _id: productId, productName, brandName, createdAt, productImage, originalPrice, sellingPrice } = productInfo;
 
   const dispatch = useDispatch();
-  const [editProduct, setEditProduct] = useState(false);
+  const [editProduct, setEditProduct] = useState(false); // state to check whether admin wants to update the item
 
+  //function to delete the product from backend
   const handleDeleteProduct = async (id) => {
     const jsonResponse = await fetch(`/api/product/delete/${id}`, {
       method: "DELETE",
@@ -61,7 +63,7 @@ const ProductCard = ({ productInfo }) => {
         </div>
       </div>
 
-      {editProduct && (
+      {editProduct && ( //if product is set to edit then passing the current product information to UploadProduct component that creates new product in DB
         <UploadProduct
           onClose={() => {
             setEditProduct(false);

@@ -6,10 +6,12 @@ import { useNavigate, Link } from "react-router-dom";
 import imageTobase64 from "../utils/imageToBase64";
 import FormInput from "../components/FormInput";
 
+//creates account for users, password  contains number, letter and symbol
 const Signup = () => {
   const navigate = useNavigate();
   const filePickerRef = useRef(null);
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({});
 
   const handleChange = (e) => {
@@ -17,8 +19,10 @@ const Signup = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // submitting the sign up form and navigating to login page
   const handleClick = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const { name, email, password, confirmPassword } = formData;
     if (confirmPassword !== password) return setErrorMessage("Password is not Matching!");
     const message = validateEmailPasswordInput({ email, password });
@@ -34,6 +38,7 @@ const Signup = () => {
     });
 
     const jsoData = await jsonResponse.json();
+    setLoading(false);
     if (jsoData.success === false) {
       setErrorMessage(jsoData.message);
       return;
@@ -51,7 +56,6 @@ const Signup = () => {
   return (
     <div className="w-full pt-3 flex justify-center md:p-10">
       <div className="w-full p-3 flex flex-col items-center md:w-80 lg:w-96 bg-white">
-        <p className="h-2 text-red-600 py-2 text-sm font-serif">{errorMessage}</p>
         <form onSubmit={handleClick} className="w-full px-2">
           <div className="flex justify-center">
             {formData.profileImage && (
@@ -89,7 +93,9 @@ const Signup = () => {
             type="password"
             onChange={handleChange}
           />
-          <button className="bg-bg-primary text-white font-bold text-lg py-2 mt-3 w-full">Sign Up</button>
+          <button className="bg-bg-primary text-white font-bold text-lg py-2 mt-3 w-full">
+            {loading ? "Loading..." : "Sign Up"}
+          </button>
         </form>
         <p className="pt-2 text-sm w-full">
           Have an account ?{" "}
@@ -97,6 +103,7 @@ const Signup = () => {
             <Link to="/login">Log In</Link>
           </span>
         </p>
+        <p className="h-2 text-red-600 py-2 text-sm font-serif">{errorMessage}</p>
       </div>
     </div>
   );

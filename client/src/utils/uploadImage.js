@@ -1,5 +1,6 @@
 const cloudanryAPI = `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDANARY_KEY}/image/upload`;
 
+//uploading image into cloudanry and returns the url of that image
 const uploadImage = async (imageFile) => {
   const formData = new FormData();
 

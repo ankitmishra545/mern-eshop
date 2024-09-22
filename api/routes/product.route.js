@@ -13,6 +13,7 @@ import {
 
 const router = express.Router();
 
+// this routing page contains all the products endpoints routed to corressponding route handler, some request which verifying whether the request made by admin or not
 router.post("/addProduct", verifyToken, addProduct);
 router.get("/getAllProducts", getAllProducts);
 router.delete("/delete/:productId", verifyToken, deleteProduct);
@@ -21,6 +22,5 @@ router.get("/getProductCategories", getProductCategories);
 router.get("/getProductInfo/:productId", getProductInfo);
 router.get("/getCategoryProduct/:categoryName", getCategoryProducts);
 router.get("/search", searchProduct);
-// router.post("/getCartItems", getCartItems);
 
 export default router;

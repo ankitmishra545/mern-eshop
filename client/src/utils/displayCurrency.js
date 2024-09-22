@@ -1,3 +1,4 @@
+// converts the number into INR
 const displayINRCurrency = (num) => {
   const formatter = new Intl.NumberFormat("en-IN", {
     style: "currency",

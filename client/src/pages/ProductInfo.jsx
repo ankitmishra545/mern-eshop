@@ -7,6 +7,7 @@ import useCountOfItemsInCart from "../utils/useCountOfItemsInCart";
 import { useDispatch } from "react-redux";
 import { addToCart, removeItemFromCart } from "../store/productSlice";
 
+// this component fetches product information based on productId and fetches the other items in the same category for that product
 const ProductInfo = () => {
   const { productId } = useParams();
   const dispatch = useDispatch();
@@ -15,12 +16,13 @@ const ProductInfo = () => {
   const [categoryProducts, setCategoryProducts] = useState(null);
   const cartCountItem = useCountOfItemsInCart();
 
+  //fetching the product information
   const fetchProductInfo = async () => {
     const jsonResponse = await fetch(`/api/product/getProductInfo/${productId}`);
     const jsoData = await jsonResponse.json();
     setProduct(jsoData);
   };
-
+  // fetching the products based on the category of the product which fetched
   const fetchCategoryProducts = async () => {
     const jsonResponse = await fetch(`/api/product/getCategoryProduct/${product.category}`);
     const jsoData = await jsonResponse.json();
@@ -37,10 +39,12 @@ const ProductInfo = () => {
     dispatch(removeItemFromCart(productId));
   };
 
+  // this effect runs on load of the component
   useEffect(() => {
     fetchProductInfo();
   }, []);
 
+  // this effect called after product fetched
   useEffect(() => {
     if (product) {
       fetchCategoryProducts();
@@ -53,7 +57,7 @@ const ProductInfo = () => {
 
   return (
     <div className="m-10 bg-white w-full">
-      <div className="w-full flex gap-5">
+      <div className="w-full md:flex gap-5">
         <div className="  min-w-80 min-h-80 w-4/12 flex items-center justify-center">
           <img src={productImage[0].imagePath} alt="product-image" />
         </div>
@@ -98,7 +102,7 @@ const ProductInfo = () => {
         {categoryProducts === null || categoryProducts.length === 0 ? (
           <div className="py-5">No related items</div>
         ) : (
-          <div>
+          <div className="flex flex-wrap justify-center">
             {categoryProducts?.map((product) => (
               <HomeProductCard key={product._id} productInfo={product} countOfItem={cartCountItem[product._id]} />
             ))}

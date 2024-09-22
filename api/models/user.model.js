@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+//creating model for users who signing up
 const userSchema = new mongoose.Schema(
   {
     name: {

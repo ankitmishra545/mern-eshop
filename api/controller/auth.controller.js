@@ -4,6 +4,7 @@ import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 import { redis } from "../index.js";
 
+// this route handler recives the information from client and then adding to DB, if no errors
 export const signup = async (req, res, next) => {
   const { name, email, password, profileImage } = req.body;
 
@@ -11,13 +12,18 @@ export const signup = async (req, res, next) => {
     next(errorHandler(400, "All fields are required!"));
   }
 
+  // encrypting the password
   const hashedPassword = bcryptjs.hashSync(password, 10);
 
+  //creating new users
   const newUser = new User({ name, email, password: hashedPassword, profileImage });
 
   try {
+    // adding the user into databse
     const createdUser = await newUser.save();
+    // if new user created then deleting the cached users
     redis.del("allUsers");
+    // caching the user for 300 seconds, because recently signed up user may signin
     await redis.setex([email], 300, JSON.stringify(createdUser));
     res.status(201).json("succesfully signedup");
   } catch (error) {
@@ -25,6 +31,7 @@ export const signup = async (req, res, next) => {
   }
 };
 
+// this route handler recives the information from client and then verifies the details, if no errors
 export const signin = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -33,6 +40,7 @@ export const signin = async (req, res, next) => {
   }
 
   try {
+    // getting the result from cache if available then verifies the password and tokens, if valid then return the response
     const redishData = await redis.get(email);
     if (redishData) {
       const { password: redisPassword, ...rest } = JSON.parse(redishData);
@@ -42,9 +50,12 @@ export const signin = async (req, res, next) => {
         return res.status(200).cookie("access_token", token, { httpOnly: true }).json(rest);
       }
     }
+
+    // if user is not in cache then runs for mongoDB, here finding the user using the email
     const user = await User.findOne({ email });
 
     if (!user) {
+      // returns if no email is existed in DB
       next(errorHandler(404, "User not found!"));
     }
 
@@ -54,8 +65,10 @@ export const signin = async (req, res, next) => {
       next(401, "Invalid credentials entered!");
     }
 
+    // verifiying the token
     const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin }, process.env.JWT_SECRET_KEY);
 
+    // extracting the password
     const { password: pass, ...rest } = user._doc;
 
     res.status(200).cookie("access_token", token, { httpOnly: true }).json(rest);

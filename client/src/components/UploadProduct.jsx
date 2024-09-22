@@ -8,8 +8,9 @@ import { MdDelete } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { fetchProducts } from "../store/productSlice";
 
+// this component is used by admin to UPDATE and CREATE new product, if editProductInfo is true then this components upades the product otherwise creates new update
 const UploadProduct = ({ onClose, editProductInfo }) => {
-  const imageRef = useRef(null);
+  const imageRef = useRef(null); // ref created to get access DOM of input file
   const dispatch = useDispatch();
   const [uploadProduct, setUploadProduct] = useState({
     productName: "",
@@ -21,10 +22,12 @@ const UploadProduct = ({ onClose, editProductInfo }) => {
     description: "",
   });
 
+  // function changing the product information that have to changed
   const handleChangeUploadProduct = (e) => {
     setUploadProduct({ ...uploadProduct, [e.target.name]: e.target.value });
   };
 
+  //this function creates the mage file into base64
   const handleUploadImage = async (e) => {
     const file = e.target.files[0];
     const { asset_id: imageId, url: imagePath } = await uploadImage(file);
@@ -33,12 +36,14 @@ const UploadProduct = ({ onClose, editProductInfo }) => {
     setUploadProduct(newData);
   };
 
+  // deleting the uploaded image from the product information which till not added to DB
   const handleDeleteImage = (id) => {
     const newProductImages = uploadProduct.productImage.filter((image) => image.imageId !== id);
     const newData = { ...uploadProduct, productImage: newProductImages };
     setUploadProduct(newData);
   };
 
+  // if no editProductInfo then this function excutes and returns the PROMISE
   const addProductData = async () => {
     return await fetch("/api/product/addProduct", {
       method: "POST",
@@ -47,6 +52,7 @@ const UploadProduct = ({ onClose, editProductInfo }) => {
     });
   };
 
+  // if editProductInfo is true then this function excutes and returns the PROMISE
   const updateProductData = async () => {
     return await fetch(`/api/product/update/${editProductInfo._id}`, {
       method: "PUT",
@@ -65,12 +71,13 @@ const UploadProduct = ({ onClose, editProductInfo }) => {
     }
     const jsoData = await jsonResponse.json();
     if (jsoData.success === false) return;
-    onClose();
-    dispatch(fetchProducts());
+    onClose(); // closing the modal, that opened for UPDATING, or CREATING
+    dispatch(fetchProducts()); // this tells to custom hooks, that in DB products have some changes like(updated, or added) so re-fetch products
   };
 
   useEffect(() => {
     if (editProductInfo) {
+      // if admin selected edit then setting the state which contains the information which needs to UPDATE
       const {
         _id: productId,
         productName,
@@ -105,6 +112,7 @@ const UploadProduct = ({ onClose, editProductInfo }) => {
           </button>
         </div>
         <form className="overflow-y-scroll h-full p-7 flex flex-col gap-2" onSubmit={handleSubmit}>
+          {/*ths input takes the name of product */}
           <FormInput
             type="text"
             name="productName"
@@ -113,6 +121,7 @@ const UploadProduct = ({ onClose, editProductInfo }) => {
             value={uploadProduct.productName}
             onChange={handleChangeUploadProduct}
           />
+          {/*ths input takes the name of brand */}
           <FormInput
             type="text"
             name="brandName"
@@ -121,6 +130,7 @@ const UploadProduct = ({ onClose, editProductInfo }) => {
             value={uploadProduct.brandName}
             onChange={handleChangeUploadProduct}
           />
+          {/*ths input adding category of product */}
           <div className="flex flex-col">
             <label>Category:</label>
             <select
@@ -139,6 +149,7 @@ const UploadProduct = ({ onClose, editProductInfo }) => {
               })}
             </select>
           </div>
+          {/*ths input adding images of product */}
           <div className="grid gap-2">
             <label>Product Image:</label>
             <div
@@ -164,6 +175,7 @@ const UploadProduct = ({ onClose, editProductInfo }) => {
                       className="absolute top-0 right-0 bg-white rounded-full p-1 hidden group-hover:block cursor-pointer "
                       onClick={() => handleDeleteImage(imageId)}
                     >
+                      {/*deleting the added image */}
                       <MdDelete color="red" size="15px" />
                     </div>
                   </div>
@@ -195,6 +207,7 @@ const UploadProduct = ({ onClose, editProductInfo }) => {
             rows={3}
             onChange={handleChangeUploadProduct}
           />
+          {/*button UPDATING, or CREATING the product */}
           <button className="w-full p-3 bg-green-600 rounded-lg text-white font-bold text-lg mt-2 ">
             {editProductInfo ? "Update Product" : "Upload Product"}
           </button>

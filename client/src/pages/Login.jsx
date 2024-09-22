@@ -11,14 +11,18 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({});
 
+  // changing the formdata with entered inputs
   const handleChange = (e) => {
     setErrorMessage("");
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // validating the entry and sending the request to verify the info
   const handleClick = async (e) => {
+    setLoading(true);
     const { email, password } = formData;
     e.preventDefault();
     const message = validateEmailPasswordInput({ email, password });
@@ -33,11 +37,14 @@ const Login = () => {
     });
 
     const jsoData = await jsonResponse.json();
+    setLoading(false);
     if (jsoData.success === false) {
       setErrorMessage(jsoData.message);
       return;
     }
     dispatch(addUser(jsoData));
+    //if entered user is admin then navigated to admin otherwise to homepage
+
     if (jsoData.isAdmin) {
       navigate("/admin-panel/products");
     } else {
@@ -59,7 +66,9 @@ const Login = () => {
             type="password"
             onChange={handleChange}
           />
-          <button className="bg-bg-primary text-white font-bold text-lg py-3 mt-3 w-full">Log In</button>
+          <button className="bg-bg-primary text-white font-bold text-lg py-3 mt-3 w-full">
+            {loading ? "Loading..." : "Log In"}
+          </button>
         </form>
         <p className="pt-2 text-sm w-full">
           Don't have account ?{" "}

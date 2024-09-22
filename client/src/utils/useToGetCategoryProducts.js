@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 
+// returns products based on the category
 const useToGetCategoryProducts = (categoryName) => {
   const [products, setProducts] = useState(null);
 

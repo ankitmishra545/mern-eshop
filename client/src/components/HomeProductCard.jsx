@@ -5,6 +5,7 @@ import { FaMinus } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+// this reusable component is card of product which recieves two props, one prop is product and other one contains the quantity of this product which are in cart
 const HomeProductCard = ({ productInfo, countOfItem }) => {
   const { _id: productId, productName, brandName, productImage, originalPrice, sellingPrice } = productInfo;
 
@@ -12,17 +13,17 @@ const HomeProductCard = ({ productInfo, countOfItem }) => {
   const navigate = useNavigate();
 
   const handleAddtoCart = (e) => {
-    e.stopPropagation();
+    e.stopPropagation(); // stoping the propagation as parent is clickable that redirects to the product information page
     dispatch(addToCart(productId));
   };
 
   const handleRemoveItem = (e) => {
-    e.stopPropagation();
+    e.stopPropagation(); // stoping the propagation as parent is clickable that redirects to the product information page
     dispatch(removeItemFromCart(productId));
   };
 
   const handleProductClick = () => {
-    navigate(`/product-info/${productId}`);
+    navigate(`/product-info/${productId}`); // redirecting to  product information page
   };
 
   return (
@@ -38,9 +39,10 @@ const HomeProductCard = ({ productInfo, countOfItem }) => {
         <p>{brandName}</p>
         <div className="flex flex-col gap-2">
           <p className="text-green-600">{displayINRCurrency(sellingPrice)}</p>
+          {/*displayINRCurrency function converts the number value into INR*/}
           <del className="text-gray-600">{displayINRCurrency(originalPrice)}</del>
         </div>
-        {countOfItem ? (
+        {countOfItem ? ( // if this product in cart then display these buttons, '+'increments item in cart and "-"decrements item from cart
           <div className="w-full flex gap-2 items-center p-1 bg-green-600 rounded-lg text-white justify-center h-8 mt-3">
             <button onClick={handleAddtoCart} className=" w-4/12 flex justify-center  h-full items-center">
               <FaPlus />
@@ -51,6 +53,7 @@ const HomeProductCard = ({ productInfo, countOfItem }) => {
             </button>
           </div>
         ) : (
+          //displaying this button if this product not in the cart
           <div className="pt-3">
             <button className="bg-red-600 p-1 w-full text-white rounded-lg" onClick={handleAddtoCart}>
               Add to cart

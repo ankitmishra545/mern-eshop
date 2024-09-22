@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 
+// this custom hooks recieves the products id from the cart and then count each item's quantity and returns the object
 const useCountOfItemsInCart = () => {
   const cart = useSelector((store) => store.product.cart);
 

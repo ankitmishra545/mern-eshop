@@ -2,7 +2,9 @@ import { useState } from "react";
 import { FaEyeSlash } from "react-icons/fa";
 import { FaEye } from "react-icons/fa";
 
+// reusable form input component
 const FormInput = ({ name, label, placeholder, type, onChange, value = "" }) => {
+  // following state variable is used to handle the password visibility
   const [shouldPasswordVisible, setShouldPasswordVisible] = useState(false);
   return (
     <div className="flex flex-col py-2">
@@ -20,6 +22,7 @@ const FormInput = ({ name, label, placeholder, type, onChange, value = "" }) => 
           <div
             className="absolute right-3 top-3 cursor-pointer"
             onClick={() => {
+              //changing the state
               setShouldPasswordVisible(!shouldPasswordVisible);
             }}
           >

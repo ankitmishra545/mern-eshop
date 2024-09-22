@@ -2,18 +2,19 @@ import { useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
 
+// this component searches in mongoDB and display
 const Searchbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState(""); // state variable to recieve the search value
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const urlParams = new URLSearchParams(location.search);
     urlParams.set("searchTerm", searchTerm);
     const searchQuery = urlParams.toString();
-    navigate(`/search?${searchQuery}`);
+    navigate(`/search?${searchQuery}`); // navigating to new routing with search query
   };
 
   return (

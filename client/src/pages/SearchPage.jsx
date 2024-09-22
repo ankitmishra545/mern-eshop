@@ -3,17 +3,20 @@ import { useLocation } from "react-router-dom";
 import HomeProductCard from "../components/HomeProductCard";
 import useCountOfItemsInCart from "../utils/useCountOfItemsInCart";
 
+// this page opens when something searched in header
 const SearchPage = () => {
   const location = useLocation();
 
   const [products, setProducts] = useState([]);
 
+  // customhook returns quantity of items
   const countCartItems = useCountOfItemsInCart();
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const searchTermFromURL = urlParams.get("searchTerm");
 
+    // fetching the search result
     const fetchSearchedResults = async () => {
       const jsonResponse = await fetch(`/api/product/search?${searchTermFromURL}`);
       const jsoData = await jsonResponse.json();

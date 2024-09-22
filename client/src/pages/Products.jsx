@@ -3,6 +3,7 @@ import ProductCard from "../components/ProductCard";
 import UploadProduct from "../components/UploadProduct";
 import useGetPtoducts from "../utils/useGetProducts";
 
+// this component display the all products, and can CREATE the product in DB
 const Products = () => {
   const [showUploadProduct, setShowUploadProduct] = useState(false);
   const products = useGetPtoducts();
@@ -27,6 +28,8 @@ const Products = () => {
           return <ProductCard key={product._id} productInfo={product} />;
         })}
       </div>
+
+      {/*open modal for uploading the product */}
       {showUploadProduct && (
         <div className="py-2">
           <UploadProduct onClose={handleCloseUploadProduct} />

@@ -1,3 +1,4 @@
+// taking file, and returns into base64
 const imageTobase64 = async (image) => {
   const reader = new FileReader();
   reader.readAsDataURL(image);

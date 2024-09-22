@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// model for creating the product
 const productSchema = new mongoose.Schema(
   {
     productName: {
