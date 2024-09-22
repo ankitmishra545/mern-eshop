@@ -10,7 +10,7 @@ const AdminPanel = () => {
   const user = useSelector((store) => store.user);
 
   const handleLogout = async () => {
-    const responseJson = await fetch("/api/user/logout");
+    const responseJson = await fetch("http://localhost:3000/api/user/logout");
     const jsoData = await responseJson.json();
     navigate("/login");
   };

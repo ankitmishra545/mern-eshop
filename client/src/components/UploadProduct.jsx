@@ -45,7 +45,7 @@ const UploadProduct = ({ onClose, editProductInfo }) => {
 
   // if no editProductInfo then this function excutes and returns the PROMISE
   const addProductData = async () => {
-    return await fetch("/api/product/addProduct", {
+    return await fetch("http://localhost:3000/api/product/addProduct", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(uploadProduct),
@@ -54,7 +54,7 @@ const UploadProduct = ({ onClose, editProductInfo }) => {
 
   // if editProductInfo is true then this function excutes and returns the PROMISE
   const updateProductData = async () => {
-    return await fetch(`/api/product/update/${editProductInfo._id}`, {
+    return await fetch(`http://localhost:3000/api/product/update/${editProductInfo._id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(uploadProduct),

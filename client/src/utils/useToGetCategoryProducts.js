@@ -5,7 +5,7 @@ const useToGetCategoryProducts = (categoryName) => {
   const [products, setProducts] = useState(null);
 
   const fetchCategoryProducts = async () => {
-    const jsonResponse = await fetch(`/api/product/getCategoryProduct/${categoryName}`);
+    const jsonResponse = await fetch(`http://localhost:3000/api/product/getCategoryProduct/${categoryName}`);
     const jsoData = await jsonResponse.json();
     setProducts(jsoData);
   };

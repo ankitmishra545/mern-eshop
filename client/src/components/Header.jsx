@@ -19,7 +19,7 @@ const Header = () => {
     dispatch(addUser({}));
     dispatch(addToCart(null));
 
-    const jsonResponse = await fetch("/api/user/logout");
+    const jsonResponse = await fetch("http://localhost:3000/api/user/logout");
     const jsoData = await jsonResponse.json();
     navigate("/login");
   };

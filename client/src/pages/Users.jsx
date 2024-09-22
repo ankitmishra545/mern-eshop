@@ -7,13 +7,13 @@ const Users = () => {
   const [users, setUsers] = useState([]);
 
   const fetchAllUsers = async () => {
-    const jsonResponse = await fetch("/api/user/getAllUsers");
+    const jsonResponse = await fetch("http://localhost:3000/api/user/getAllUsers");
     const jsoData = await jsonResponse.json();
     setUsers(jsoData);
   };
 
   const handleDeleteUser = async (id) => {
-    const jsonResponse = await fetch(`/api/user/delete/${id}`, {
+    const jsonResponse = await fetch(`http://localhost:3000/api/user/delete/${id}`, {
       method: "DELETE",
     });
     const data = await jsonResponse.json();

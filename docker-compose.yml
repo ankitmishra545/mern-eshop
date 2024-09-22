@@ -1,0 +1,37 @@
+services:
+  backend:
+    build: ./api
+    ports:
+      - "3000:3000" 
+    networks:
+      - mern_network
+    env_file:
+      - ./api/.env  
+    depends_on:
+      - mongodb
+
+  frontend:
+    build: ./client
+    ports:
+      - "5173:5173"  
+    networks:
+      - mern_network
+    env_file:
+      - ./client/.env 
+
+  mongodb:
+    image: mongo:latest  
+    ports:
+      - "27017:27017"  
+    networks:
+      - mern_network
+    volumes:
+      - mongo-data:/data/db  
+
+networks:
+  mern_network:
+    driver: bridge 
+
+volumes:
+  mongo-data:
+    driver: local  # Persist MongoDB data locally

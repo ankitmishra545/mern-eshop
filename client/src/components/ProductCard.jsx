@@ -16,7 +16,7 @@ const ProductCard = ({ productInfo }) => {
 
   //function to delete the product from backend
   const handleDeleteProduct = async (id) => {
-    const jsonResponse = await fetch(`/api/product/delete/${id}`, {
+    const jsonResponse = await fetch(`http://localhost:3000/api/product/delete/${id}`, {
       method: "DELETE",
     });
 

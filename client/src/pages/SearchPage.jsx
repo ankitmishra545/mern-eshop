@@ -18,7 +18,7 @@ const SearchPage = () => {
 
     // fetching the search result
     const fetchSearchedResults = async () => {
-      const jsonResponse = await fetch(`/api/product/search?${searchTermFromURL}`);
+      const jsonResponse = await fetch(`http://localhost:3000/api/product/search?${searchTermFromURL}`);
       const jsoData = await jsonResponse.json();
       if (jsoData.success === false) return;
       setProducts(jsoData);

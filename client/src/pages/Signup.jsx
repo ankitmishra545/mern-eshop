@@ -31,7 +31,7 @@ const Signup = () => {
       setErrorMessage("Please fill all details!");
       return;
     }
-    const jsonResponse = await fetch("/api/auth/signup", {
+    const jsonResponse = await fetch("http://localhost:3000/api/auth/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),

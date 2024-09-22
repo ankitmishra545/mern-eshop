@@ -6,7 +6,7 @@ const CategoryList = () => {
 
   // fetching the unique category from all products and storing in state variable
   const fetchCategoryList = async () => {
-    const jsonResponse = await fetch("/api/product/getProductCategories");
+    const jsonResponse = await fetch("http://localhost:3000/api/product/getProductCategories");
     const jsoData = await jsonResponse.json();
     setCategories(jsoData);
   };

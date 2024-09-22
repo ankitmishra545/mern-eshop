@@ -18,13 +18,13 @@ const ProductInfo = () => {
 
   //fetching the product information
   const fetchProductInfo = async () => {
-    const jsonResponse = await fetch(`/api/product/getProductInfo/${productId}`);
+    const jsonResponse = await fetch(`http://localhost:3000/api/product/getProductInfo/${productId}`);
     const jsoData = await jsonResponse.json();
     setProduct(jsoData);
   };
   // fetching the products based on the category of the product which fetched
   const fetchCategoryProducts = async () => {
-    const jsonResponse = await fetch(`/api/product/getCategoryProduct/${product.category}`);
+    const jsonResponse = await fetch(`http://localhost:3000/api/product/getCategoryProduct/${product.category}`);
     const jsoData = await jsonResponse.json();
     setCategoryProducts(jsoData.filter((el) => el._id !== product._id));
   };

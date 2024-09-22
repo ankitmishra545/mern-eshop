@@ -30,7 +30,7 @@ const Login = () => {
       setErrorMessage(message);
       return;
     }
-    let jsonResponse = await fetch("/api/auth/signin", {
+    let jsonResponse = await fetch("http://localhost:3000/api/auth/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),
