@@ -15,3 +15,15 @@ Installation - git clone git clone https://github.com/ankitmishra545/mern-eshop 
 
 Access the Application
 -http://localhost:5173
+
+URL of PROJECT: https://mern-eshop-hwjs.onrender.com/
+
+admin_information:
+
+    - email: "admin@mail.com", password: "admin"
+    - email: "admin@gmail.com", password: "admin"
+
+user_information
+
+    - email: "user@mail.com", password: "user"
+    - email: "user@mail.com", password: "user"

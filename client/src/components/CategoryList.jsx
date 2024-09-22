@@ -17,7 +17,7 @@ const CategoryList = () => {
 
   return (
     <div className="container mx-auto p-2">
-      <div className="overflow-scroll flex flex-col  md:flex-row gap-4 justify-between items-center no-scrollbar">
+      <div className="overflow-scroll flex w-screen md:w-full  md:flex-row gap-4 justify-between items-center no-scrollbar">
         {categories.map((category) => {
           const { _id: categoryId, productImage, category: categoryName } = category;
           return (
